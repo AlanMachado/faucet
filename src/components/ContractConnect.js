@@ -22,7 +22,7 @@ export function ContractConnect() {
 
     const submitForm = async (e) => {
         e.preventDefault();
-        const provider = new JsonRpcProvider("http://127.0.0.1:8545");
+        const provider = new JsonRpcProvider(process.env.NETWORK_RPC_URL);
         async function getContractFunctions() {
             try {
                 await provider.getCode(contractAddress);
@@ -46,7 +46,7 @@ export function ContractConnect() {
             const toSend = {
                 value: parseUnits(valueToFund ? valueToFund : '0', 18)
             }
-            
+
             if (values.length) {
                 result = await contract[functionName](...values, state === 'payable' ? toSend: {});
             } else {
